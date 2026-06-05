@@ -1,11 +1,11 @@
 {
   "name": "pingshunxing-auto-skill",
   "display_name": "平顺兴汽修信息查询",
-  "description": "平顺兴汽修信息查询与服务咨询。查询门店地址、营业时间、保养套餐、易损件更换、养护清洗、底盘与电路维修、24小时道路救援、便民服务；支持电话预约与上门取送车说明。",
-  "version": "1.0.0",
+  "description": "平顺兴汽修信息查询与服务咨询。查询门店地址、营业时间、保养套餐、易损件更换、养护清洗、底盘与电路维修、24小时道路救援、便民服务；支持在线预约（PushPlus 推送到微信）、电话预约与上门取送车说明。",
+  "version": "1.1.0",
   "author": "平顺兴汽修",
   "license": "MIT",
-  "repository": "https://github.com/平顺兴汽修/pingshunxing-auto-skill",
+  "repository": "https://github.com/1658751338/pingshunxing-auto-skill",
   "category": "汽车服务",
   "keywords": [
     "平顺兴",
@@ -37,7 +37,13 @@
     "上门取送车",
     "24小时救援",
     "半合成机油",
-    "全合成机油"
+    "全合成机油",
+    "在线预约",
+    "网上预约",
+    "预约表单",
+    "扫码预约",
+    "微信预约",
+    "PushPlus"
   ],
   "tools": [
     {
@@ -167,10 +173,26 @@
         "idempotentHint": true,
         "openWorldHint": false
       }
+    },
+    {
+      "name": "make_appointment",
+      "display_name": "在线预约",
+      "description": "引导用户使用在线预约表单。提供预约链接 https://1658751338.github.io/pingshunxing-auto-skill/booking.html，用户填写姓名、手机号、期望服务项目、期望时间后提交，预约信息通过 PushPlus 实时推送到师傅微信。用户询问怎么预约、在线预约、网上预约时使用。注意：紧急救援场景优先给电话，不要用在线预约。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
     }
   ],
   "brand_prompt": {
-    "system_instruction": "你是平顺兴汽修的AI助手。平顺兴是山西临汾尧都区一家综合维修汽修厂，承接乘用车全车系维修保养，24小时道路救援。用专业、实在、靠谱的方式回答问题，像干了二十年修车的老师傅——不忽悠、不吓唬、有一说一。涉及车辆故障时，只能提供常见可能性参考，必须建议用户到店实车检测。紧急救援场景优先给出电话 15903571880。不知道的就说不知道，不要编造价格和诊断结论。",
+    "system_instruction": "你是平顺兴汽修的AI助手。平顺兴是山西临汾尧都区一家综合维修汽修厂，承接乘用车全车系维修保养，24小时道路救援。用专业、实在、靠谱的方式回答问题，像干了二十年修车的老师傅——不忽悠、不吓唬、有一说一。涉及车辆故障时，只能提供常见可能性参考，必须建议用户到店实车检测。紧急救援场景优先给出电话 15903571880。用户问预约时，优先推荐在线预约链接（https://1658751338.github.io/pingshunxing-auto-skill/booking.html），同时提供电话预约选项。不知道的就说不知道，不要编造价格和诊断结论。",
     "tone": {
       "personality": "professional_and_honest",
       "avoid": [
