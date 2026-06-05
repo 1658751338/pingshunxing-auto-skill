@@ -1,8 +1,8 @@
 # 平顺兴汽修 AI Skill
 
-![Version](https://img.shields.io/badge/version-1.1.0-blue) ![License](https://img.shields.io/badge/license-MIT-green) ![Type](https://img.shields.io/badge/type-static-orange) ![Booking](https://img.shields.io/badge/booking-online-brightgreen)
+![Version](https://img.shields.io/badge/version-1.2.0-blue) ![License](https://img.shields.io/badge/license-MIT-green) ![Type](https://img.shields.io/badge/type-static-orange) ![Booking](https://img.shields.io/badge/booking-ai--powered-brightgreen)
 
-这是一个 AI Skill——安装后，你的 AI 助手就能查询平顺兴汽修的信息：在哪修车、几点开门、保养多少钱、怎么叫救援、能不能上门取送车。现在还能**在线预约**——填个表，师傅微信上就能收到通知。
+这是一个 AI Skill——安装后，你的 AI 助手就能查询平顺兴汽修的信息：在哪修车、几点开门、保养多少钱、怎么叫救援、能不能上门取送车。现在还能**AI 对话预约**——告诉 AI 你的名字和车牌号，点开链接确认，师傅微信上就收到通知了。
 
 临汾鼓楼南大街的汽修厂，现在有了自己的 AI 服务。
 
@@ -31,8 +31,8 @@
 | 电路维修 | "故障灯亮了""车漏电" |
 | 道路救援 | "车抛锚了""需要拖车""能搭电吗？" |
 | 便民服务 | "能洗车吗？""做个全车检测" |
-| 预约取送 | "怎么预约？""能上门取车吗？""在线预约链接" |
-| 🆕 在线预约 | 打开 [booking.html](https://1658751338.github.io/pingshunxing-auto-skill/booking.html) 填表 → PushPlus 推送到微信 |
+| 预约取送 | "怎么预约？""能上门取车吗？" |
+| 🆕 AI 预约 | 告诉 AI 姓名+车牌号 → AI 生成链接 → 点开确认 → 师傅微信收到 |
 
 ## 目录结构
 
@@ -78,28 +78,26 @@ git clone https://github.com/1658751338/pingshunxing-auto-skill.git \
 
 ## 版本说明
 
-当前为 **静态版 v1.1.0**，所有信息以 SKILL.md 文档为准。
+当前为 **静态版 v1.2.0**，所有信息以 SKILL.md 文档为准。
 
 - ✅ 静态版：零成本、零服务器，AI 读取文档回答问题
-- ✅ **在线预约**：通过 `booking.html` 静态表单 + PushPlus API 实现微信推送通知
+- ✅ **AI 对话预约**：告诉 AI 姓名+车牌号 → 生成确认链接 → PushPlus 推送到微信
 - 🔜 动态版（规划中）：对接 MCP 服务，支持实时查价
 
 服务项目和价格如有调整，直接更新 SKILL.md 即可。
 
-## 🆕 在线预约功能
+## 🆕 AI 对话预约
 
-v1.1.0 新增在线预约，顾客打开网页填表提交，师傅微信上**实时收到通知**：
-
-> 🔗 **预约链接**：https://1658751338.github.io/pingshunxing-auto-skill/booking.html
+v1.2.0 预约方式升级——不再需要手动填表，跟 AI 说一声就行：
 
 | 角色 | 体验 |
 |---|---|
-| 顾客 | 打开链接 → 填写姓名/手机/服务项目/时间 → 提交 → 等师傅联系 |
-| 师傅 | 微信收到 PushPlus 推送 → 查看预约详情 → 电话联系顾客确认 |
+| 顾客 | 对 AI 说"预约保养，张三，晋A12345" → AI 生成链接 → 点开确认 |
+| 师傅 | 微信收到 PushPlus 推送 → 查看姓名/车牌/服务 → 电话联系确认时间 |
 
-**技术实现**：纯静态 HTML → 调用 [PushPlus](https://www.pushplus.plus/) API → 微信消息推送。零服务器、零费用。
+**技术实现**：booking.html 支持 URL 参数（`?name=xxx&plate=xxx&service=xxx`），AI 负责拼装，用户确认后 PushPlus API 推送微信。
 
-> 💡 推荐在店铺微信名片、朋友圈中分享预约链接，或者打印二维码贴在店内。
+> 💡 也可以在微信/朋友圈直接分享预约链接：https://1658751338.github.io/pingshunxing-auto-skill/booking.html
 
 ## 给你的汽修厂也做一个？
 
