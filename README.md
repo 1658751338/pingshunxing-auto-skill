@@ -1,8 +1,8 @@
 # 平顺兴汽修 AI Skill
 
-![Version](https://img.shields.io/badge/version-1.2.0-blue) ![License](https://img.shields.io/badge/license-MIT-green) ![Type](https://img.shields.io/badge/type-static-orange) ![Booking](https://img.shields.io/badge/booking-ai--powered-brightgreen)
+![Version](https://img.shields.io/badge/version-1.3.0-blue) ![License](https://img.shields.io/badge/license-MIT-green) ![Type](https://img.shields.io/badge/type-static-orange) ![Booking](https://img.shields.io/badge/booking-ai--direct-brightgreen)
 
-这是一个 AI Skill——安装后，你的 AI 助手就能查询平顺兴汽修的信息：在哪修车、几点开门、保养多少钱、怎么叫救援、能不能上门取送车。现在还能**AI 对话预约**——告诉 AI 你的名字和车牌号，点开链接确认，师傅微信上就收到通知了。
+这是一个 AI Skill——安装后，你的 AI 助手就能查询平顺兴汽修的信息。现在还能**AI 直接预约**——告诉 AI 名字和车牌号，AI 直接提交到师傅微信，啥链接都不用点。
 
 临汾鼓楼南大街的汽修厂，现在有了自己的 AI 服务。
 
@@ -32,7 +32,7 @@
 | 道路救援 | "车抛锚了""需要拖车""能搭电吗？" |
 | 便民服务 | "能洗车吗？""做个全车检测" |
 | 预约取送 | "怎么预约？""能上门取车吗？" |
-| 🆕 AI 预约 | 告诉 AI 姓名+车牌号 → AI 生成链接 → 点开确认 → 师傅微信收到 |
+| 🆕 AI 直接预约 | 告诉 AI 姓名+车牌号 → AI 直接提交 → 师傅微信收到 ✅ |
 
 ## 目录结构
 
@@ -78,26 +78,26 @@ git clone https://github.com/1658751338/pingshunxing-auto-skill.git \
 
 ## 版本说明
 
-当前为 **静态版 v1.2.0**，所有信息以 SKILL.md 文档为准。
+当前为 **静态版 v1.3.0**，所有信息以 SKILL.md 文档为准。
 
 - ✅ 静态版：零成本、零服务器，AI 读取文档回答问题
-- ✅ **AI 对话预约**：告诉 AI 姓名+车牌号 → 生成确认链接 → PushPlus 推送到微信
+- ✅ **AI 直接预约**：告诉 AI 姓名+车牌号 → AI 调 API 直接推送到微信，零点击
 - 🔜 动态版（规划中）：对接 MCP 服务，支持实时查价
 
 服务项目和价格如有调整，直接更新 SKILL.md 即可。
 
-## 🆕 AI 对话预约
+## 🆕 AI 直接预约
 
-v1.2.0 预约方式升级——不再需要手动填表，跟 AI 说一声就行：
+v1.3.0 预约进一步简化——用户不用打开任何页面，AI 直接代提交：
 
 | 角色 | 体验 |
 |---|---|
-| 顾客 | 对 AI 说"预约保养，张三，晋A12345" → AI 生成链接 → 点开确认 |
+| 顾客 | 对 AI 说"预约保养，张三，晋A12345" → AI 直接提交 → 完成 ✅ |
 | 师傅 | 微信收到 PushPlus 推送 → 查看姓名/车牌/服务 → 电话联系确认时间 |
 
-**技术实现**：booking.html 支持 URL 参数（`?name=xxx&plate=xxx&service=xxx`），AI 负责拼装，用户确认后 PushPlus API 推送微信。
+**技术实现**：AI 通过 curl 直接调用 PushPlus API（`POST https://www.pushplus.plus/send`），零中间页面。
 
-> 💡 也可以在微信/朋友圈直接分享预约链接：https://1658751338.github.io/pingshunxing-auto-skill/booking.html
+> ⚠️ PushPlus 需要实名认证：https://verify.pushplus.plus
 
 ## 给你的汽修厂也做一个？
 
