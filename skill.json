@@ -1,0 +1,192 @@
+{
+  "name": "pingshunxing-auto-skill",
+  "display_name": "平顺兴汽修信息查询",
+  "description": "平顺兴汽修信息查询与服务咨询。查询门店地址、营业时间、保养套餐、易损件更换、养护清洗、底盘与电路维修、24小时道路救援、便民服务；支持电话预约与上门取送车说明。",
+  "version": "1.0.0",
+  "author": "平顺兴汽修",
+  "license": "MIT",
+  "repository": "https://github.com/平顺兴汽修/pingshunxing-auto-skill",
+  "category": "汽车服务",
+  "keywords": [
+    "平顺兴",
+    "平顺兴汽修",
+    "pingshunxing",
+    "临汾汽修",
+    "临汾修车",
+    "临汾保养",
+    "尧都区汽修",
+    "鼓楼南大街",
+    "汽车维修",
+    "汽车保养",
+    "小保养",
+    "大保养",
+    "刹车片",
+    "火花塞",
+    "变速箱油",
+    "道路救援",
+    "拖车",
+    "搭电",
+    "换胎",
+    "四轮定位",
+    "动平衡",
+    "积碳清洗",
+    "空调清洗",
+    "车辆检测",
+    "洗车",
+    "精洗",
+    "上门取送车",
+    "24小时救援",
+    "半合成机油",
+    "全合成机油"
+  ],
+  "tools": [
+    {
+      "name": "get_shop_info",
+      "display_name": "门店基本信息",
+      "description": "查询平顺兴汽修的基本信息：门店名称、地址、营业时间、联系电话。无需输入参数。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "get_maintenance_services",
+      "display_name": "保养服务项目",
+      "description": "查询平顺兴汽修的常规保养服务：半合成/全合成小保养、机油三滤套餐、变速箱油更换。用户询问保养、小保养、大保养、换机油时使用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "get_wear_parts_info",
+      "display_name": "易损件更换项目",
+      "description": "查询易损件更换服务：刹车片、刹车盘、刹车油、电瓶、火花塞、轮胎、四轮定位、正时皮带/链条。用户询问换刹车片、换电瓶、换轮胎等时使用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "get_cleaning_services",
+      "display_name": "养护清洗项目",
+      "description": "查询养护清洗服务：节气门清洗、喷油嘴清洗、积碳清洗、进气道清洗、防冻液更换、助力油更换、空调清洗、蒸发箱清洗、除异味。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "get_repair_rescue_info",
+      "display_name": "维修与救援服务",
+      "description": "查询维修与道路救援服务：底盘维修、电路维修、拖车、搭电、上门换胎、现场抢修。用户问抛锚、拖车、救援、底盘异响、故障灯等问题时使用。含24小时救援电话。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "get_convenience_services",
+      "display_name": "附加便民服务",
+      "description": "查询附加便民服务：洗车、精洗、玻璃水加注、车辆安全检查、全车检测。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "get_appointment_info",
+      "display_name": "预约与取送车",
+      "description": "查询预约方式与上门取送车服务。用户询问怎么预约、上门取车、送车时使用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "get_faq",
+      "display_name": "常见问题 FAQ",
+      "description": "查询顾客常见问题解答：价格、时间、服务、保养建议等。用户问大概多少钱、多久能修好、XX公里该做什么保养时使用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    }
+  ],
+  "brand_prompt": {
+    "system_instruction": "你是平顺兴汽修的AI助手。平顺兴是山西临汾尧都区一家综合维修汽修厂，承接乘用车全车系维修保养，24小时道路救援。用专业、实在、靠谱的方式回答问题，像干了二十年修车的老师傅——不忽悠、不吓唬、有一说一。涉及车辆故障时，只能提供常见可能性参考，必须建议用户到店实车检测。紧急救援场景优先给出电话 15903571880。不知道的就说不知道，不要编造价格和诊断结论。",
+    "tone": {
+      "personality": "professional_and_honest",
+      "avoid": [
+        "fake_diagnosis",
+        "made_up_prices",
+        "scare_tactics",
+        "marketing_jargon",
+        "over_promise"
+      ]
+    },
+    "brand_keywords": [
+      "老师傅信得过",
+      "24小时救援",
+      "综合维修",
+      "上门取送车",
+      "明码标价"
+    ]
+  }
+}
