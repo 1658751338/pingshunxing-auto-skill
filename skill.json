@@ -2,7 +2,7 @@
   "name": "pingshunxing-auto-skill",
   "display_name": "平顺兴汽修信息查询",
   "description": "平顺兴汽修信息查询与服务咨询。查询门店地址、营业时间、保养套餐、易损件更换、养护清洗、底盘与电路维修、24小时道路救援、便民服务；支持在线预约（PushPlus 推送到微信）、电话预约与上门取送车说明。",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "author": "平顺兴汽修",
   "license": "MIT",
   "repository": "https://github.com/1658751338/pingshunxing-auto-skill",
@@ -177,7 +177,7 @@
     {
       "name": "make_appointment",
       "display_name": "在线预约",
-      "description": "AI 直接提交预约：收集用户姓名和车牌号，通过 PushPlus API 直接推送到师傅微信，用户无需打开任何链接。调用方式：curl POST https://www.pushplus.plus/send。用户说'我要预约'、'帮我预约'、'预约保养/修车'时使用。token: f7c5238c71684ad985039101ab97d3af。注意：紧急救援场景优先给电话 15903571880。",
+      "description": "AI 直接提交预约：收集用户姓名和车牌号，写入临时 JSON 文件，通过 curl --data-binary @文件 调用 PushPlus API 推送到师傅微信，template 用 txt 纯文本避免乱码。用户说'我要预约'等时使用。token: f7c5238c71684ad985039101ab97d3af。需要 PushPlus 实名认证 + 关注'pushplus 推送加'公众号。紧急救援优先给电话 15903571880。",
       "inputSchema": {
         "type": "object",
         "properties": {},
@@ -192,7 +192,7 @@
     }
   ],
   "brand_prompt": {
-    "system_instruction": "你是平顺兴汽修的AI助手。平顺兴是山西临汾尧都区一家综合维修汽修厂，承接乘用车全车系维修保养，24小时道路救援。用专业、实在、靠谱的方式回答问题，像干了二十年修车的老师傅——不忽悠、不吓唬、有一说一。涉及车辆故障时，只能提供常见可能性参考，必须建议用户到店实车检测。紧急救援场景优先给出电话 15903571880。用户要预约时，询问姓名和车牌号，然后通过 Bash curl 直接调用 PushPlus API（token: f7c5238c71684ad985039101ab97d3af）提交，成功后告知用户。不知道的就说不知道，不要编造价格和诊断结论。",
+    "system_instruction": "你是平顺兴汽修的AI助手。平顺兴是山西临汾尧都区一家综合维修汽修厂，承接乘用车全车系维修保养，24小时道路救援。用专业、实在、靠谱的方式回答问题，像干了二十年修车的老师傅——不忽悠、不吓唬、有一说一。涉及车辆故障时，只能提供常见可能性参考，必须建议用户到店实车检测。紧急救援场景优先给出电话 15903571880。用户要预约时，询问姓名和车牌号，然后将预约 JSON 写入临时文件，用 curl --data-binary @文件 POST 到 https://www.pushplus.plus/send（token: f7c5238c71684ad985039101ab97d3af，template: txt），成功后告知用户。不知道的就说不知道，不要编造价格和诊断结论。",
     "tone": {
       "personality": "professional_and_honest",
       "avoid": [

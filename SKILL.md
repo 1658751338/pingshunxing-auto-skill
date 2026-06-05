@@ -1,7 +1,7 @@
 ---
 name: pingshunxing-auto-skill
 description: 平顺兴汽修信息查询与服务咨询。查询汽修厂地址、营业时间、服务项目与价格、道路救援、保养建议；支持在线预约（PushPlus 推送到微信）、电话预约与上门取送车说明。
-version: 1.3.0
+version: 1.4.0
 alwaysApply: false
 keywords:
 - 平顺兴
@@ -177,37 +177,48 @@ keywords:
 
 1. 用户说"我要预约" → AI 询问姓名和车牌号
 2. 用户提供姓名 + 车牌号 → AI 从对话上下文提取服务需求（如有）
-3. AI 直接调用 PushPlus API 提交预约：
+3. AI 将 JSON 写入临时文件，再用 curl `--data-binary` 调用 PushPlus API：
+
+**步骤一**：写入 JSON 文件（确保 UTF-8 编码正确）
+
+```json
+{"token":"f7c5238c71684ad985039101ab97d3af","title":"新预约通知","content":"称呼：{姓名}\n车牌：{车牌号}\n服务：{服务项目}\n\n请尽快联系顾客确认预约时间。","template":"txt"}
+```
+
+**步骤二**：用文件方式提交
 
 ```bash
 curl -s -X POST "https://www.pushplus.plus/send" \
   -H "Content-Type: application/json" \
-  -d '{"token":"f7c5238c71684ad985039101ab97d3af","title":"【预约】{姓名} - {服务项目}","content":"<div style=\"font-size:15px;line-height:1.8;\"><h3 style=\"margin:0 0 12px;color:#1a3c5e;\">📋 新预约通知</h3><table style=\"border-collapse:collapse;width:100%;\"><tr><td style=\"padding:6px 8px;color:#666;width:64px;\">👤 称呼</td><td style=\"padding:6px 8px;\"><b>{姓名}</b></td></tr><tr><td style=\"padding:6px 8px;color:#666;\">🚗 车牌</td><td style=\"padding:6px 8px;\"><b>{车牌号}</b></td></tr><tr><td style=\"padding:6px 8px;color:#666;\">🔧 服务</td><td style=\"padding:6px 8px;\"><b>{服务项目}</b></td></tr></table><p style=\"margin-top:12px;color:#999;font-size:12px;\">请尽快联系顾客确认预约时间。</p></div>","template":"html"}'
+  --data-binary @/tmp/booking.json
 ```
 
-4. 根据 API 返回结果告知用户：
-   - `code: 200` → "预约已提交成功！师傅微信上已收到通知，会尽快联系您确认时间。"
-   - `code: 905` → "预约功能需要 PushPlus 实名认证，请先打开 https://verify.pushplus.plus 认证。临时可以先打电话 15903571880 预约。"
-   - 其他错误 → 告知错误信息，建议电话预约 15903571880
+> ⚠️ **必须用 `--data-binary @文件` 方式**，不能直接在命令行 -d 里写中文。Windows 下 shell 编码会导致微信收到乱码。
 
 **API 参数说明**：
 | 参数 | 值 |
 |---|---|
 | URL | `https://www.pushplus.plus/send` |
 | Method | POST |
+| Content-Type | `application/json` |
 | token | `f7c5238c71684ad985039101ab97d3af` |
-| title | `【预约】{姓名} - {服务项目}` |
-| content | HTML 格式的预约详情 |
-| template | `html` |
+| title | `新预约通知` |
+| content | 纯文本，用 `\n` 换行（不是 `<br>`） |
+| template | `txt`（纯文本，不用 html） |
+
+4. 根据 API 返回结果告知用户：
+   - `code: 200` → "预约已提交成功 ✅ 师傅微信上已收到通知，会尽快联系您确认时间。"
+   - `code: 905` → "PushPlus 需要实名认证，请打开 https://verify.pushplus.plus 认证。临时可打电话 15903571880。"
+   - `code: 999` → "请确认已关注'pushplus 推送加'公众号并发送过'激活消息'。临时可打电话 15903571880。"
+   - 其他错误 → 告知错误码和 msg，建议电话预约 15903571880
 
 **服务项目提取规则**：
-- 如果用户明确说了服务内容（如"半合成机油小保养"、"换刹车片"、"洗车"等），直接使用
-- 如果只说"预约"没说具体项目，服务字段填"待确认"
+- 如果用户明确说了（如"半合成机油小保养"、"换刹车片"等），直接使用
+- 如果只说"预约"没说具体项目，服务填"待确认"
 - 不要编造用户没说的服务内容
 
 ### 📝 在线表单（备用）
 
-如果用户更习惯自己填表，也可以打开：
 https://1658751338.github.io/pingshunxing-auto-skill/booking.html
 
 ### 📞 电话预约（备用）
@@ -216,7 +227,7 @@ https://1658751338.github.io/pingshunxing-auto-skill/booking.html
 
 ---
 
-> 🚨 **注意**：紧急维修/道路救援请**直接拨打电话 15903571880**，不要用在线预约！安全第一。
+> 🚨 **注意**：紧急维修/道路救援请**直接拨打电话 15903571880**！
 
 ## 取车送车方式
 
@@ -313,11 +324,13 @@ https://1658751338.github.io/pingshunxing-auto-skill/booking.html
 
 ## 维护者参考
 
-- 本 Skill 为静态版本 (v1.3.0)，所有信息以本文档为准
+- 本 Skill 为静态版本 (v1.4.0)，所有信息以本文档为准
 - 服务项目和价格如有调整，请更新本文档对应章节
 - 建议定期检查联系方式、营业时间等关键信息是否准确
-- **在线预约**：AI 直接通过 curl 调用 PushPlus API 提交预约通知到微信
-  - PushPlus API: `POST https://www.pushplus.plus/send`，token: `f7c5238c71684ad985039101ab97d3af`
-  - API 返回 code=200 为成功，code=905 为未实名认证
-- 备用表单：https://1658751338.github.io/pingshunxing-auto-skill/booking.html
+- **在线预约**：AI 将 JSON 写入临时文件，通过 `curl --data-binary @文件` 调用 PushPlus API
+  - API: `POST https://www.pushplus.plus/send`，token: `f7c5238c71684ad985039101ab97d3af`
+  - template: `txt`（纯文本），content 用 `\n` 换行
+  - 必须用 `--data-binary` + 文件方式提交，避免 Windows 编码导致乱码
+  - 前提：PushPlus 账户需实名认证，微信需关注"pushplus 推送加"公众号并发过"激活消息"
+  - 返回码：200 成功 / 905 未实名 / 999 未关注公众号
 - 仓库地址：https://github.com/1658751338/pingshunxing-auto-skill
